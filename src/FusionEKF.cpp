@@ -41,25 +41,25 @@ FusionEKF::FusionEKF() {
               0, 1, 0, 0;
 
   // Initial state transition matrix "F"
-	ekf_.F_ = MatrixXd(4, 4);
-	ekf_.F_ << 1, 0, 1, 0,
-			       0, 1, 0, 1,
-			       0, 0, 1, 0,
-			       0, 0, 0, 1;
+  ekf_.F_ = MatrixXd(4, 4);
+  ekf_.F_ << 1, 0, 1, 0,
+			 0, 1, 0, 1,
+			 0, 0, 1, 0,
+			 0, 0, 0, 1;
 
   // State covariance matrix "P"
-	ekf_.P_ = MatrixXd(4, 4);
-	ekf_.P_ << 1, 0, 0, 0,
-			       0, 1, 0, 0,
-			       0, 0, 1000, 0,
-			       0, 0, 0, 1000;
+  ekf_.P_ = MatrixXd(4, 4);
+  ekf_.P_ << 1, 0, 0, 0,
+			 0, 1, 0, 0,
+			 0, 0, 1000, 0,
+			 0, 0, 0, 1000;
 
   
   // Process covariance matrix "Q"
   ekf_.Q_ = MatrixXd(4, 4);
 
   // Acceleration components are modeled as noises "ax" and "ay"
-	noise_ax = 9;
+  noise_ax = 9;
   noise_ay = 9;
 }
 
@@ -101,7 +101,7 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
 	    float px = rho * cos(phi); 
 	    float py = rho * sin(phi);
 	    float vx = rho_dot * cos(phi);
-      float vy = rho_dot * sin(phi);
+        float vy = rho_dot * sin(phi);
 
       // Update the state vector
 	    ekf_.x_ << px, py, vx , vy;
@@ -152,10 +152,10 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
   float dt_3 = dt_2 * dt;
   float dt_4 = dt_3 * dt;
 
-	ekf_.Q_ <<  dt_4/4*noise_ax, 0, dt_3/2*noise_ax, 0,
-			        0, dt_4/4*noise_ay, 0, dt_3/2*noise_ay,
-			        dt_3/2*noise_ax, 0, dt_2*noise_ax, 0,
-			        0, dt_3/2*noise_ay, 0, dt_2*noise_ay;
+  ekf_.Q_ <<  dt_4/4*noise_ax, 0, dt_3/2*noise_ax, 0,
+			  0, dt_4/4*noise_ay, 0, dt_3/2*noise_ay,
+			  dt_3/2*noise_ax, 0, dt_2*noise_ax, 0,
+			  0, dt_3/2*noise_ay, 0, dt_2*noise_ay;
 
   ekf_.Predict();
 

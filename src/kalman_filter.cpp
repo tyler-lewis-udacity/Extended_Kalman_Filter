@@ -64,7 +64,7 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
    float rho_dot;
    
    // If rho is very near to zero, set rho_dot to zero
-   float epsilon = 0.001;
+   float epsilon = 0.0001;
    if (fabs(rho) < epsilon){
      rho_dot = 0;
    }
