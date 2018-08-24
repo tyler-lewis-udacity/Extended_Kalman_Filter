@@ -77,7 +77,9 @@ void KalmanFilter::UpdateEKF(const VectorXd &z) {
    VectorXd y = z - z_pred;
 
   // Ensure that angle is between -pi and pi (...see project Tips and Tricks)
-  float pi = 3.141592;
+  /* A big thanks to: https://github.com/mdalai/self-driving-car-Extended-Kalman-Filter
+  ...I was stuck on this error until I read this student's notes. */
+  float pi = 3.141;
   if (y(1) < -pi) {
     y(1) = y(1) + 2*pi;
   }
